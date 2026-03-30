@@ -17,9 +17,11 @@ Scheduler is responsible for querying and filtering the schedule — it takes an
 
 **b. Design changes**
 
-- Did your design change during implementation?
+- Did your design change during implementation? Yes.
 - If yes, describe at least one change and why you made it.
 
+Added unique IDs to each dataclass,IDs avoid ambiguity when names are not unique.
+id: str = field(default_factory=lambda: uuid4().hex) on Owner, Pet, Task.
 ---
 
 ## 2. Scheduling Logic and Tradeoffs
