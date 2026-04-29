@@ -384,3 +384,13 @@ Writing the two-layer validator showed that rule-based and AI-based checks compl
 Building PawPal+ taught me that the hardest part of an AI-integrated system is not the AI call itself — it is deciding what the AI is *allowed* to do without human confirmation. The staging pattern (propose → review → commit) emerged naturally once I considered what could go wrong if the agent misheard a pet name or picked the wrong date. That single design decision made the entire system safer and also made it much easier to test, because the AI output and the data mutation became two separate, independently verifiable steps.
 
 The project also showed me that LLMs are best used as *interpreters*, not *decision-makers*. The agent's job is to translate a vague natural-language request ("set up the surgery") into structured data (a list of Task specs). The scheduling rules, conflict detection, and final approval stay with the human and with deterministic code. This division of responsibility — LLM for understanding, rules for correctness, human for authority — is a pattern I will carry into every AI system I build.
+
+---
+
+## Demo
+
+[Watch the demo video](https://www.tella.tv/video/vid_cmojotfwo009h04jvhwej9h6c/view)
+
+> Loom was unavailable at submission time. Screenshot below as evidence:
+
+![Loom error](assets/loom_error.png)

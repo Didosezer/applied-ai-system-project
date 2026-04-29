@@ -111,6 +111,7 @@ class AgentResult:
     explanation: str                        # Claude's final natural-language summary
     rag_chunks: list[dict]                  # retrieved knowledge snippets (for UI display)
     iterations: int
+    trace_steps: list[dict] = field(default_factory=list)  # Thought/Action/Observation trace
 
 
 class AgentLoopError(Exception):
@@ -240,6 +241,7 @@ def run_agent(owner: Owner, user_message: str) -> AgentResult:
 
     staged_by_pet: dict[str, list[Task]] = {}
     rag_chunks: list[dict] = []
+    trace_steps: list[dict] = []
 
     for iteration in range(1, MAX_ITERATIONS + 1):
         response = _get_client().chat.completions.create(
@@ -252,29 +254,46 @@ def run_agent(owner: Owner, user_message: str) -> AgentResult:
 
         if choice.finish_reason == "stop":
             explanation = choice.message.content or ""
-            return AgentResult(staged_by_pet, explanation, rag_chunks, iteration)
+            trace_steps.append({"type": "final", "content": explanation})
+            return AgentResult(staged_by_pet, explanation, rag_chunks, iteration, trace_steps)
 
         if choice.finish_reason == "tool_calls":
+            # Capture any reasoning text the model emitted alongside the tool call
+            thought_text = (choice.message.content or "").strip()
+            if thought_text:
+                trace_steps.append({"type": "thought", "content": thought_text})
+
             messages.append(choice.message)
             for tool_call in choice.message.tool_calls:
                 args = json.loads(tool_call.function.arguments)
-                result = _dispatch_tool(
+                trace_steps.append({
+                    "type": "action",
+                    "tool": tool_call.function.name,
+                    "args": args,
+                })
+                tool_result = _dispatch_tool(
                     tool_call.function.name,
                     args,
                     owner,
                     staged_by_pet,
                     rag_chunks,
                 )
+                trace_steps.append({
+                    "type": "observation",
+                    "tool": tool_call.function.name,
+                    "content": tool_result,
+                })
                 messages.append({
                     "role": "tool",
                     "tool_call_id": tool_call.id,
-                    "content": result,
+                    "content": tool_result,
                 })
             continue
 
         # Unexpected finish reason — treat remaining content as final answer
         explanation = choice.message.content or ""
-        return AgentResult(staged_by_pet, explanation, rag_chunks, iteration)
+        trace_steps.append({"type": "final", "content": explanation})
+        return AgentResult(staged_by_pet, explanation, rag_chunks, iteration, trace_steps)
 
     raise AgentLoopError(
         f"Agent did not finish within {MAX_ITERATIONS} iterations. "

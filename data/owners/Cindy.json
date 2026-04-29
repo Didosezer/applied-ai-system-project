@@ -1,0 +1,27 @@
+{
+  "id": "cc8324088b584954ba1d0804ccd0fc81",
+  "name": "Cindy",
+  "pets": [
+    {
+      "id": "e5c8a68db3644fda927299dbcc7bc615",
+      "name": "cici",
+      "breed": "persian cat",
+      "birth_date": "2025-11-01",
+      "neuter_record": {
+        "status": false,
+        "date": null
+      },
+      "vaccinations": [],
+      "tasks": [
+        {
+          "id": "5770a089a01946cd8f74eaf91ebfefb0",
+          "name": "Rabies vaccination",
+          "time": "2026-05-09T09:00:00",
+          "is_done": false,
+          "duration_minutes": 30,
+          "category": "vaccination"
+        }
+      ]
+    }
+  ]
+}

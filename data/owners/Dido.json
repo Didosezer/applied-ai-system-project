@@ -1,0 +1,32 @@
+{
+  "id": "cad33da42fdc42b7871895d32a2ff8e9",
+  "name": "Dido",
+  "pets": [
+    {
+      "id": "575b6998a4ee46ca873695ee3c8c1475",
+      "name": "cici",
+      "breed": "persian cat",
+      "birth_date": "2026-01-01",
+      "neuter_record": {
+        "status": false,
+        "date": null
+      },
+      "vaccinations": [
+        {
+          "vaccine_name": "Administer rabies vaccine",
+          "date_given": "2026-04-29"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "26b86a9d12a94897bc428101dc7e6d78",
+          "name": "Administer rabies vaccine",
+          "time": "2026-04-29T16:00:00",
+          "is_done": true,
+          "duration_minutes": 30,
+          "category": "vaccination"
+        }
+      ]
+    }
+  ]
+}

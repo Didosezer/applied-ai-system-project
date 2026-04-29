@@ -30,6 +30,8 @@ if "agent_explanation" not in st.session_state:
     st.session_state.agent_explanation = ""
 if "conflicts" not in st.session_state:
     st.session_state.conflicts = []
+if "agent_trace" not in st.session_state:
+    st.session_state.agent_trace = []
 
 # ---------------------------------------------------------------------------
 # Sidebar — owner & pet setup only
@@ -172,12 +174,14 @@ with tab_tasks:
             st.session_state.staged_by_pet = {}
             st.session_state.agent_explanation = ""
             st.session_state.conflicts = []
+            st.session_state.agent_trace = []
 
             with st.spinner("AI is thinking..."):
                 try:
                     result = run_agent(owner, user_message)
                     st.session_state.staged_by_pet = result.staged_by_pet
                     st.session_state.agent_explanation = result.explanation
+                    st.session_state.agent_trace = result.trace_steps
 
                     if result.staged_by_pet:
                         st.session_state.conflicts = validate(
@@ -188,6 +192,32 @@ with tab_tasks:
 
     if st.session_state.agent_explanation:
         st.info(st.session_state.agent_explanation)
+
+    # ---- Agent trace --------------------------------------------------------
+    if st.session_state.agent_trace:
+        with st.expander("🔍 Agent Trace", expanded=False):
+            _ICONS = {
+                "thought":     "💭 **Thought**",
+                "action":      "⚡ **Action**",
+                "observation": "📋 **Observation**",
+                "final":       "✅ **Final Answer**",
+            }
+            for step in st.session_state.agent_trace:
+                label = _ICONS.get(step["type"], step["type"])
+                if step["type"] == "thought":
+                    st.markdown(f"{label}")
+                    st.markdown(f"> {step['content']}")
+                elif step["type"] == "action":
+                    st.markdown(f"{label}: `{step['tool']}`")
+                    st.json(step["args"])
+                elif step["type"] == "observation":
+                    st.markdown(f"{label}: `{step['tool']}`")
+                    preview = step["content"][:400] + "…" if len(step["content"]) > 400 else step["content"]
+                    st.code(preview, language=None)
+                elif step["type"] == "final":
+                    st.markdown(f"{label}")
+                    st.markdown(step["content"])
+                st.divider()
 
     # ---- Staged tasks review -----------------------------------------------
     if st.session_state.staged_by_pet:
