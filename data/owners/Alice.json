@@ -1,0 +1,82 @@
+{
+  "id": "462c0da65b74418ab52faad43dc37558",
+  "name": "Alice",
+  "pets": [
+    {
+      "id": "8ce188af63774145b945a6b1fb740255",
+      "name": "Billy",
+      "breed": "Golden Retrivar",
+      "birth_date": "2026-03-01",
+      "neuter_record": {
+        "status": false,
+        "date": null
+      },
+      "vaccinations": [
+        {
+          "vaccine_name": "First vaccination (puppy series)",
+          "date_given": "2026-04-29"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "61de8731b2b641c3a6332ba5618ad51b",
+          "name": "First vaccination (puppy series)",
+          "time": "2026-04-29T09:00:00",
+          "is_done": true,
+          "duration_minutes": 30,
+          "category": "vaccination"
+        },
+        {
+          "id": "3883eee25d20462c8f631a7e50fab8bc",
+          "name": "Schedule follow-up vaccinations",
+          "time": "2026-06-29T09:00:00",
+          "is_done": false,
+          "duration_minutes": 30,
+          "category": "vaccination"
+        },
+        {
+          "id": "58b620f3da5147c7ba11dbe88437b256",
+          "name": "Give Billy a shower",
+          "time": "2026-04-30T16:30:00",
+          "is_done": false,
+          "duration_minutes": 30,
+          "category": ""
+        }
+      ]
+    },
+    {
+      "id": "8aa68b321b5e48b0b84d554395c71d67",
+      "name": "doudou2",
+      "breed": "Persian Cat",
+      "birth_date": "2026-04-18",
+      "neuter_record": {
+        "status": false,
+        "date": null
+      },
+      "vaccinations": [
+        {
+          "vaccine_name": "Schedule initial vaccination for Doudou2",
+          "date_given": "2026-05-01"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "b7fec86f4ab440628bc9720d275cf2bf",
+          "name": "Feed Doudou soft food after dental cleaning",
+          "time": "2026-04-29T09:00:00",
+          "is_done": true,
+          "duration_minutes": 30,
+          "category": ""
+        },
+        {
+          "id": "2ef6f2997c8a4e22a2c697dcd08d65f8",
+          "name": "Schedule initial vaccination for Doudou2",
+          "time": "2026-05-01T09:00:00",
+          "is_done": true,
+          "duration_minutes": 30,
+          "category": "vaccination"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "a39f72c67b794eaabcdc512da78089b8",
+  "name": "Brian",
+  "pets": [
+    {
+      "id": "b36e57c7c9e4404e8bc1673970a27a4e",
+      "name": "Billy",
+      "breed": "Golden Retrivar",
+      "birth_date": "2026-03-01",
+      "neuter_record": {
+        "status": false,
+        "date": null
+      },
+      "vaccinations": [],
+      "tasks": []
+    },
+    {
+      "id": "17de38cbd5f14b5ea15f1edbdd5ae9ad",
+      "name": "doudou",
+      "breed": "Persian Cat",
+      "birth_date": "2024-04-18",
+      "neuter_record": {
+        "status": true,
+        "date": null
+      },
+      "vaccinations": [],
+      "tasks": []
+    }
+  ]
+}
